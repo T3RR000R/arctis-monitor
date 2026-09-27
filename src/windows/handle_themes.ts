@@ -4,6 +4,7 @@ import iconPicker from './icon_picker';
 
 export default class HandleThemes {
   tray: Tray;
+  isLowBattery: boolean = false;
 
   constructor() {
     nativeTheme.on('updated', () => this.handleThemeChange());
@@ -24,8 +25,6 @@ export default class HandleThemes {
 
   async handleThemeChange() {
     const isLightTheme = await this.isUsedSystemLightTheme();
-    console.log('in updated', isLightTheme);
-
-    this.tray.setImage(iconPicker(isLightTheme));
+    this.tray.setImage(iconPicker(isLightTheme, this.isLowBattery));
   }
 }
